@@ -1,5 +1,5 @@
 import pandas as pd
-dataset = pd.read_csv("weight-height.csv")
+dataset = pd.read_csv(r"E:\B.Tech\Projects\Predict Weight based on Height and Gender\weight-height.csv")
 
 dataset.info()
 dataset.describe()
@@ -12,11 +12,10 @@ labelEncoder_gender =  LabelEncoder()
 X[:,0] = labelEncoder_gender.fit_transform(X[:,0])
 
 import numpy as np
-X = np.vstack(X[:, :]).astype(np.float)
+X = np.vstack(X[:, :]).astype(np.float64)
 
 from sklearn.model_selection import train_test_split
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
-
 
 from sklearn.linear_model import LinearRegression
 lin_reg = LinearRegression()
@@ -24,11 +23,10 @@ lin_reg.fit(X_train, y_train)
 
 lin_pred = lin_reg.predict(X_test)
 
-
 from sklearn import metrics
 print('R square = ',metrics.r2_score(y_test, lin_pred))
 print('Mean squared Error = ',metrics.mean_squared_error(y_test, lin_pred))
 print('Mean absolute Error = ',metrics.mean_absolute_error(y_test, lin_pred))
 
-my_weight_pred = lin_reg.predict([[0,74]])
+my_weight_pred = lin_reg.predict([[0,70]])
 print('My predicted weight = ',my_weight_pred)
